@@ -1,0 +1,7 @@
+{
+    "clientID": "j4UZYKyITY7y9muDzBm7H3BSY9wa",
+    "baseUrl": "https://api.asgardeo.io/t/gramacheckapp",
+    "signInRedirectURL": "https://localhost:3000",
+    "signOutRedirectURL": "https://localhost:3000",
+    "scope": ["openid","profile"]
+}
