@@ -33,14 +33,13 @@ function Navbar() {
                 <li>{state.username}</li>
                 </ul>
                 
-                <button onClick={() => signOut()}>Logout</button>
+                <button onClick={() => signOut()}>Logout123</button>
                 </div>
                 )
                 : <button onClick={() => signIn()}>Login</button>
             }
             </div>
-            {/* <Link to='Views' smooth={true} duration={500} ><li>Log out</li></Link> */}
-            
+
             </ul>
             <div className="nav-icons">
             <BiSearch className='icon' style={{ marginRight: '1rem' }} />
