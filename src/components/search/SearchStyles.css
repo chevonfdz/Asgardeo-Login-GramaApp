@@ -83,6 +83,10 @@
     margin: .4rem;
 }
 
+.or{
+    text-align: center;
+}
+
 
 @media screen and (max-width: 940px) {
     .search .container {

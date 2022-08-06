@@ -21,7 +21,7 @@ function Navbar() {
         </div>
         <ul className="nav-menu">
         <Link to='home' smooth={true} duration={500} ><li>Home</li></Link>
-        <Link to='destinations' smooth={true} duration={500} ><li>Service catalog</li></Link>
+        <Link to='search' smooth={true} duration={500} ><li>Check status</li></Link>
         <Link to='search' smooth={true} duration={500} ><li>Request a certificate</li></Link>
         <Link to='Help' smooth={true} duration={500} ><li>Help</li></Link>
         <div>
@@ -29,14 +29,10 @@ function Navbar() {
             state.isAuthenticated
             ? (
                 <div>
-                <ul>
-                <li>{state.username}</li>
-                </ul>
-                
-                <button onClick={() => signOut()}>Logout123</button>
+                <li><button onClick={() => signOut()}>Logout</button></li>
                 </div>
                 )
-                : <button onClick={() => signIn()}>Login</button>
+                : <li><button onClick={() => signIn()}>Login</button></li>
             }
             </div>
 
@@ -74,7 +70,8 @@ function Navbar() {
             </div>
             
             </div>
+            
             )
         }
-        
+
         export default Navbar

@@ -77,7 +77,9 @@ function Search() {
                                 <input type="date" />
                             </div>
                         </div>
-                        <button>Generate Police Certificate </button>
+                        <button>Apply for a Grama Certificate </button>
+                        <div className='or'><h2>OR</h2></div>
+                        <button>Check status of Certificate</button>
                     </form>
                 </div>
             </div>
