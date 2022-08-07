@@ -123,10 +123,9 @@ function Search() {
                       method: 'GET',
                       headers: myHeaders,
                       redirect: 'follow',
-                      params: {nic: data.NIC, address: data.Address, phone: data.PhoneNo}
                     };
                     
-                    fetch("https://b4baf3d6-1f2c-4895-9f5c-aeecc00e7aef-prod.e1-us-east-azure.choreoapis.dev/knmr/choreogramacheckintegrationapi/1.0.0/validate", requestOptions)
+                    fetch("https://b4baf3d6-1f2c-4895-9f5c-aeecc00e7aef-prod.e1-us-east-azure.choreoapis.dev/knmr/choreogramacheckintegrationapi/1.0.0/validate", {params: {nic: data.NIC, address: data.Address, phone: data.PhoneNo}}, requestOptions)
                       .then(response => response.text())
                       .then(result => console.log(result))
                       .catch(error => console.log('error', error));
