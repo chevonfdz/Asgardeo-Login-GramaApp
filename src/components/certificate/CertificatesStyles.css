@@ -1,61 +1,59 @@
 .certificates {
-   
-    width: 100%;
-    font-family: "Hachi Maru Pop", cursive;
-    display: flex;
-    padding: 15px;
-    text-align: center;
-    padding: 4rem 0;
+  width: 100%;
+  font-family: "Hachi Maru Pop", cursive;
+  display: flex;
+  padding: 15px;
+  text-align: center;
+  padding: 0.1rem 0;
 }
 
 .certificates h1 {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .img-container {
-    width: 700px;
-height: auto;
-text-align: center;  
-    --gap:1rem;
-    border: 3px solid red;
-    --num-cols:1;
-    --row-height:50px;
-    display: grid;
-    grid-template-columns: repeat(var(--num-cols), 1fr);
-    padding: 1rem 0;
-    gap: var(--gap);
+  width: 700px;
+  height: auto;
+  text-align: center;
+  --gap: 1rem;
+  border: 3px solid red;
+  --num-cols: 1;
+  --row-height: 10px;
+  display: grid;
+  grid-template-columns: repeat(var(--num-cols), 1fr);
+  padding: 1rem 0;
+  gap: var(--gap);
 }
 
 .certificates img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .span-3 {
-    grid-column: span 3;
+  grid-column: span 3;
 }
 
 .image-grid-row-2 {
-    grid-row: span 2;
+  grid-row: span 2;
 }
 
 .certificates button {
-    margin: .4rem;
+  margin: 0.4rem;
 }
 * {
-    box-sizing: border-box;
-  }
+  box-sizing: border-box;
+}
 
 @media screen and (max-width: 940px) {
-    .img-container {
-      
-        --num-cols: 2;
-        --row-height: 100px;
-        --grap: .5rem
-    }
+  .img-container {
+    --num-cols: 2;
+    --row-height: 100px;
+    --grap: 0.5rem;
+  }
 
-    .span-3 {
-        grid-column: span 2;
-    }
+  .span-3 {
+    grid-column: span 2;
+  }
 }
