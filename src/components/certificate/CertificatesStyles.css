@@ -1,5 +1,9 @@
 .certificates {
+   
     width: 100%;
+    font-family: "Hachi Maru Pop", cursive;
+    display: flex;
+    padding: 15px;
     text-align: center;
     padding: 4rem 0;
 }
@@ -9,7 +13,11 @@
 }
 
 .img-container {
+    width: 700px;
+height: auto;
+text-align: center;  
     --gap:1rem;
+    border: 3px solid red;
     --num-cols:1;
     --row-height:50px;
     display: grid;
@@ -35,6 +43,9 @@
 .certificates button {
     margin: .4rem;
 }
+* {
+    box-sizing: border-box;
+  }
 
 @media screen and (max-width: 940px) {
     .img-container {
