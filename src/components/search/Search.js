@@ -13,25 +13,14 @@ function Search() {
     const { register, handleSubmit, formState: {errors} } = useForm();
     const [NIC, setNIC] = useState('');
     const [Address, setAddress] = useState('');
-    const { state, signIn, signOut, getAccessToken, getIDToken } = useAuthContext();
+    const { state, getIDToken } = useAuthContext();
 
-    const obtainIDToken = () => {
+    const obtainAccessToken = () => {
         getIDToken().then((IDToken)=>{
-            //console.log(IDToken)
-            // let takeToken = "eyJ4NXQiOiJZak0xWkRGa01EVTVPV00wTW1NNE1HWTVPR1U1TUdKbE5qWmhPVFV5TnpVM1pUUTFaR0k0WkdGa05qRTJPVGxpTVdZek5XTmpOR0psTWpFMU16Y3lOdyIsImtpZCI6IllqTTFaREZrTURVNU9XTTBNbU00TUdZNU9HVTVNR0psTmpaaE9UVXlOelUzWlRRMVpHSTRaR0ZrTmpFMk9UbGlNV1l6TldOak5HSmxNakUxTXpjeU53X1JTMjU2IiwiYWxnIjoiUlMyNTYifQ.eyJpc2siOiJhNjkxYjM5MmFkZjA3ZGQ2MDE0NWZkOGUwYTExMGNmNWZmYWVjZjQ4MDZjYmYzNGI0YWUzYjkxZTQ3MjM3MDFjIiwiYXRfaGFzaCI6IlE3dmViSFNONlFjbHZjcWZiRml4bHciLCJhdWQiOlsiR2dqM0prdHV1cElaVWdmX1F2WWcxRU5jZDFFYSIsImh0dHBzOlwvXC9zdHMuY2hvcmVvLmRldlwvb2F1dGgyXC90b2tlbiJdLCJzdWIiOiI0MDZiZDFhZC1iODQxLTQ0NDQtYWNiNS1hY2I3MTg5MTE5MzgiLCJuYmYiOjE2NTk4NzMwNjcsImF6cCI6IkdnajNKa3R1dXBJWlVnZl9RdllnMUVOY2QxRWEiLCJhbXIiOlsicmVmcmVzaF90b2tlbiJdLCJpc3MiOiJodHRwczpcL1wvYXBpLmFzZ2FyZGVvLmlvXC90XC9hcmVlYlwvb2F1dGgyXC90b2tlbiIsImV4cCI6MTY1OTg3NjY2NywiaWF0IjoxNjU5ODczMDY3LCJ1c2VybmFtZSI6ImFyZWVibml5YXNAZ21haWwuY29tIn0.VohA1M_fOGNy-RH3nhjpYLt2WxyGg8dqPlBWKJJKaBBDLO78V1aIdlbHSz70JIv4MtKt3qtCoPnecBzjQvjFAqGn3DgEZgFJKAQXuphpcYnOs77T-xSOQ1tosXHgPWPEVUND18SH7Si9cTjr-u3Vp3SWdNGW32eE_EPwC-lTc3f7K4ytknoBPm2w2ivLKY_RsRMJEIEJFXp9edurEkVNDuqfpCfLAaLrT1d_jkkZ2NyqjNHRcpJP-96NXgavlSHQQ3EKRFWIM8E23lYD7Z-wOatdlrUhOZWG2cYbhilOmEqmhC7B04YGfaMtsH6b0-ZAgIhGD8U07USGQslMSBUDzg";
-            return IDToken
-        }
-    )};
-    
-
-    useEffect(() => {
-        if(state.isAuthenticated){
-            let token = obtainIDToken()
-            console.log(token)
-
+            console.log("ID token given in the beginning: " + IDToken)
             var data = qs.stringify({
                 'grant_type': 'urn:ietf:params:oauth:grant-type:token-exchange',
-                'subject_token': token,
+                'subject_token': IDToken,
                 'subject_token_type': 'urn:ietf:params:oauth:token-type:jwt',
                 'requested_token_type': 'urn:ietf:params:oauth:token-type:jwt'
             });
@@ -58,6 +47,44 @@ function Search() {
                 .catch(function (error) {
                     console.log(error);
                 });
+    
+        }
+    )};
+    
+
+    useEffect(() => {
+        if(state.isAuthenticated){
+            obtainAccessToken();
+
+            // var data = qs.stringify({
+            //     'grant_type': 'urn:ietf:params:oauth:grant-type:token-exchange',
+            //     'subject_token': token,
+            //     'subject_token_type': 'urn:ietf:params:oauth:token-type:jwt',
+            //     'requested_token_type': 'urn:ietf:params:oauth:token-type:jwt'
+            // });
+            // var config = {
+            //     method: 'post',
+            //     url: 'https://sts.choreo.dev/oauth2/token',
+            //     headers: {
+            //         'Authorization': 'Basic WEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYTp5UDdpXzVTZnFfSmhyeUZSeFk1bG9ySUtVdzhh',
+            //         'Content-Type': 'application/x-www-form-urlencoded',
+            //         'Cookie': 'apim=1659854301.997.97.729965|dcb1dc1c03c8f17e5aa485d6222013b8'
+            //     },
+            //     data: data
+            // };
+    
+            // axios(config)
+            //     .then(function (response) {
+            //         let y = response.data.access_token;
+            //         localStorage.setItem('auth-token', y)
+            //         console.log(localStorage.getItem('auth-token'))
+            //         console.log(y)
+    
+            //     })
+    
+            //     .catch(function (error) {
+            //         console.log(error);
+            //     });
     
         } else {
             console.log("Did not pass the token")
