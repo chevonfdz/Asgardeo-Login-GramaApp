@@ -26,7 +26,7 @@ function Navbar() {
             console.log(IDToken);
             const data = {
                 'grant_type': 'urn:ietf:params:oauth:grant-type:token-exchange',
-                'subject_token': accessToken,
+                'subject_token': IDToken,
                 'subject_token_type': 'urn:ietf:params:oauth:token-type:jwt',
                 'requested_token_type': 'urn:ietf:params:oauth:token-type:jwt'
             };
