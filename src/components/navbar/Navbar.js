@@ -12,7 +12,12 @@ import './NavbarStyles.css'
 function Navbar() {
     const [nav, setNav] = useState(false)
     const handleNav = () => setNav(!nav)
-    const { state, signIn, signOut } = useAuthContext();
+    const { state, signIn, signOut, getAccessToken } = useAuthContext();
+    const obtainAccessToken = () => {
+        getAccessToken().then((accessToken) => {
+           console.log(accessToken);
+       }
+   )};
     
     return (
         <div name='home' className={nav ? 'navbar navbar-bg' : 'navbar'}>
@@ -35,7 +40,7 @@ function Navbar() {
                 : <li><button onClick={() => signIn()}>Login</button></li>
             }
             </div>
-
+            <li><button onClick={() => obtainAccessToken()}>Get Token</button></li>
             </ul>
             <div className="nav-icons">
             <BiSearch className='icon' style={{ marginRight: '1rem' }} />
