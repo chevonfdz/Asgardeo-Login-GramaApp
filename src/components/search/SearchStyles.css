@@ -1,107 +1,112 @@
 .search {
-    width: 100%;
-    padding: 3rem 0;
+  width: 100%;
+  padding: 3rem 0;
 }
 
 .search .container {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-gap: 1rem;
-    padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-gap: 1rem;
+  padding: 0 1rem;
 }
 
 .search-col-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 2rem 0;
-    justify-content: center;
-    align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 2rem 0;
+  justify-content: center;
+  align-items: center;
 }
 
 .search .box {
-    display: flex;
-    max-width: 810px;
-    max-height: 410px;
-    align-items: center;
-    margin: auto;
-    text-align: center;
-    
+  display: flex;
+  width: 810px;
+  height: 410px;
+  align-items: center;
+  margin: auto;
+  text-align: center;
+  font-size: 20px;
+  background-color: #eaceb8;
 }
 
 .right {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #eaceb8;
 }
 
 .promo {
-    width: 100%;
-    margin: .4rem 0;
-    margin-bottom: 4rem;
-    border: 1px solid #333;
-    text-align: center;
+  width: 100%;
+  margin: 0.4rem 0;
+  margin-bottom: 4rem;
+  border: 1px solid #333;
+  text-align: center;
 }
 
 .promo h4 {
-    font-size: 1.6rem;
-    color: var(--primary-dark);
-}
-
-.promo .timer {
-    padding: 1rem 0;
-    font-size: 1.2rem;
-}
-
-.promo .offers {
-    background: #333;
-    color: #f5f5f5;
-    padding: .4rem 0;
+  font-size: 1.6rem;
+  color: var(--primary-dark);
 }
 
 .search form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  background-color: #ebaa11;
+  height: 690px;
 }
 
 .input-wrap {
-    margin: .4rem;
-    display: flex;
-    flex-direction: column;
+  margin: 0.4rem;
+  display: flex;
+  flex-direction: column;
 }
 
-.search input, select {
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    outline: none;
+.search input,
+select {
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  outline: none;
+  background-color: #ecf3f6;
+  padding: 0.69rem;
 }
 
 .search .date {
-    display: flex;
+  display: flex;
 }
 
 .search button {
-    margin: .4rem;
+  margin: 0.4rem;
+}
+h1 {
+  font-size: 3.5rem;
 }
 
+h2 {
+  font-size: 2rem;
+  font-family: cursive;
+  padding: 1rem;
+}
 
 @media screen and (max-width: 940px) {
-    .search .container {
-        grid-template-columns: 1fr;
-    }
+  .search .container {
+    grid-template-columns: 1fr;
+  }
 
-    .search-col-2 {
-        grid-template-columns: 1fr;
-    }
+  .search-col-2 {
+    grid-template-columns: 1fr;
+    background-color: #ecf3f6;
+  }
 
-    .search .right {
-        max-width: 100%;
-    }
+  .search .right {
+    max-width: 100%;
+  }
 
-    .search form {
-        width: 100%;
-    }
+  .search form {
+    width: 100%;
+  }
 
-    .search .date {
-        flex-direction: column;
-    }
+  .search .date {
+    flex-direction: column;
+  }
 }

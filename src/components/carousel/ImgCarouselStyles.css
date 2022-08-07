@@ -1,5 +1,7 @@
 .carousel {
-  padding: 3rem 0;
+  padding: 1rem 0;
+  background-color: #eaceb8;
+  padding: 1rem;
 }
 
 .carousel img {
@@ -7,9 +9,11 @@
   height: 500px;
   text-align: center;
   object-fit: center;
+  padding: 2rem;
 }
 
 .thumbs-wrapper,
 .carousel-status {
   display: none;
+  padding: 3rem;
 }

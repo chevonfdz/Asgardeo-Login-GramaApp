@@ -2,9 +2,10 @@
   width: 100%;
   font-family: "Hachi Maru Pop", cursive;
   display: flex;
-  padding: 15px;
+  padding: 2rem;
   text-align: center;
-  padding: 0.1rem 0;
+  padding: 1rem 0;
+  background-color: #fda172;
 }
 
 .certificates h1 {
@@ -12,6 +13,7 @@
 }
 
 .img-container {
+  padding: 1rem;
   width: 700px;
   height: auto;
   text-align: center;
@@ -33,6 +35,7 @@
 
 .span-3 {
   grid-column: span 3;
+  padding: 1rem;
 }
 
 .image-grid-row-2 {
