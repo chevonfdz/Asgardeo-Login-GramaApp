@@ -1,16 +1,15 @@
 .carousel {
-    padding: 3rem 0;
+  padding: 3rem 0;
 }
-
 
 .carousel img {
-    height:90vh;
-    object-fit: cover;
+  width: 8px;
+  height: 500px;
+  text-align: center;
+  object-fit: center;
 }
 
-.thumbs-wrapper, .carousel-status {
-    display: none;
+.thumbs-wrapper,
+.carousel-status {
+  display: none;
 }
-
-
-
