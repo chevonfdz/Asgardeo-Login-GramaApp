@@ -5,15 +5,16 @@ import { useForm } from 'react-hook-form'
 import { useAuthContext } from "@asgardeo/auth-react";
 import axios from "axios";
 import qs from 'qs';
+import Modal from "react-modal";
+import styled, { css } from "styled-components";
+import policePng from '../../assets/Grama.jpg';
 
 import Video from '../../assets/GRMA CHECK.mp4'
 
 
 function Search() {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    // const [NIC, setNIC] = useState('');
-    // const [Address, setAddress] = useState('');
-    // const [{PhoneNo}, setPhoneNo] = useState('');
+    const [modalIsOpen, setIsOpen] = React.useState(false);
     const { state, getIDToken } = useAuthContext();
 
     const obtainAccessToken = () => {
@@ -59,32 +60,13 @@ function Search() {
             obtainAccessToken();
 
         } else {
-            localStorage.setItem('auth-token', '');
+            sessionStorage.clear();
+            localStorage.clear();
         }
 
     }, [state.isAuthenticated]);
 
     const validateResponse = () => {
-        // console.log(NIC);
-        // console.log(Address);
-        // console.log(PhoneNo);
-
-        // var myHeaders = new Headers();
-        // // var accessToken = "eyJ4NXQiOiJNV1E1TldVd1lXWmlNbU16WlRJek16ZG1NekJoTVdNNFlqUXlNalZoTldNNE5qaGtNR1JtTnpGbE1HSTNaRGxtWW1Rek5tRXlNemhoWWpCaU5tWmhZdyIsImtpZCI6Ik1XUTVOV1V3WVdaaU1tTXpaVEl6TXpkbU16QmhNV000WWpReU1qVmhOV000Tmpoa01HUm1OekZsTUdJM1pEbG1ZbVF6Tm1FeU16aGhZakJpTm1aaFl3X1JTMjU2IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI0MDZiZDFhZC1iODQxLTQ0NDQtYWNiNS1hY2I3MTg5MTE5MzgiLCJhdXQiOiJBUFBMSUNBVElPTl9VU0VSIiwiYXVkIjoiWEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYSIsIm5iZiI6MTY1OTg3NjQwOSwiYXpwIjoiWEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYSIsInNjb3BlIjoiZGVmYXVsdCIsImlzcyI6Imh0dHBzOlwvXC9zdHMuY2hvcmVvLmRldjo0NDNcL29hdXRoMlwvdG9rZW4iLCJleHAiOjE2NTk4ODAwMDksImlkcF9jbGFpbXMiOnsidXNlcm5hbWUiOiJhcmVlYm5peWFzQGdtYWlsLmNvbSJ9LCJpYXQiOjE2NTk4NzY0MDksImp0aSI6ImJiYzNlYzc5LWNhNjEtNDEyMC04NDU1LWE2YjY0MTA2NGU4NiJ9.oHeXRa8H331CxpVUoQgir3zOhFkPkVUZlkW_u-yTI3iISMixDTVXSxMAuM9Opois0qQhmC6ItxfqOHz-5HZWlo73kohPeG2acS03bgj3JCrPFDvhThimAjqfisk162Oz1ho0eHReCQqIYavET8c2hikHYe0OchW97YTdvbwIDPkcZW82mcKLSn51uRxPaCKYt21TVMYGQ46LVWtU8Ygv_w9nbFDP5S_4PtcJ3KigQqMSXv14nQQHxX72Sn3GdNS7lD__zbkHMIkq_jPK61m_GU_wqEN7_gRuiUylJ7NW9QK14BuprOx3tDH8ychzPj9lacxZN_dVr6y1OYwF8BEM1MdJwsmYOjnkYSwINOFPT4UvFf9vbaJffQCe1ESPVmz9soyBAkPyjA-oXt65YhZXrwgSbYKl4wEJOHaiYUx1oesLusSeD2KrqT6nvHibW144f2blLiRTfY0JUanwtN7d4U8NdeitUncBCM6czQzx9C5wuyrAvlC7tAX_lKzPT1dza8A8_mw1rbXTbIDF92a5Vfo-BJF8cN6sgk1-PQBcqSxFucReLXY2A8m4ubG64KafYyy0a6hfvJBHhJK96eZbzDyyjh3zdQoJJyhJ4wRy3wG7zmn5Fr_aO9vkVt-hx146Jhz_hFIY98H435KK_y_rt23jefz8bxf_T40WY-gjtUg";
-        // // console.log(accessToken)
-        // myHeaders.append("Authorization", "Bearer " +localStorage.getItem('auth-token'));
-
-        // var requestOptions = {
-        //   method: 'GET',
-        //   headers: myHeaders,
-        //   redirect: 'follow',
-        //   params: {nic: NIC, address: Address, phone: PhoneNo}
-        // };
-
-        // fetch("https://b4baf3d6-1f2c-4895-9f5c-aeecc00e7aef-prod.e1-us-east-azure.choreoapis.dev/knmr/choreogramacheckintegrationapi/1.0.0/validate", requestOptions)
-        //   .then(response => response.text())
-        //   .then(result => console.log(result))
-        //   .catch(error => console.log('error', error));
 
     };
 
@@ -114,31 +96,16 @@ function Search() {
                 </div>
                 <form onSubmit={handleSubmit((data) => {
                     const encodedAddress = encodeURIComponent(data.Address);
+                    localStorage.setItem('nic', data.NIC);
+                    localStorage.setItem('address', data.Address);
                     console.log(data.NIC)
                     console.log(data.Address)
                     console.log(data.PhoneNo)
                     console.log(encodedAddress);
-                    // const params = {nic:data.nic, address:data.NIC, phone: data.PhoneNo};
-
-                    // var myHeaders = new Headers();
-                    // // var accessToken = "eyJ4NXQiOiJNV1E1TldVd1lXWmlNbU16WlRJek16ZG1NekJoTVdNNFlqUXlNalZoTldNNE5qaGtNR1JtTnpGbE1HSTNaRGxtWW1Rek5tRXlNemhoWWpCaU5tWmhZdyIsImtpZCI6Ik1XUTVOV1V3WVdaaU1tTXpaVEl6TXpkbU16QmhNV000WWpReU1qVmhOV000Tmpoa01HUm1OekZsTUdJM1pEbG1ZbVF6Tm1FeU16aGhZakJpTm1aaFl3X1JTMjU2IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI0MDZiZDFhZC1iODQxLTQ0NDQtYWNiNS1hY2I3MTg5MTE5MzgiLCJhdXQiOiJBUFBMSUNBVElPTl9VU0VSIiwiYXVkIjoiWEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYSIsIm5iZiI6MTY1OTg3NjQwOSwiYXpwIjoiWEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYSIsInNjb3BlIjoiZGVmYXVsdCIsImlzcyI6Imh0dHBzOlwvXC9zdHMuY2hvcmVvLmRldjo0NDNcL29hdXRoMlwvdG9rZW4iLCJleHAiOjE2NTk4ODAwMDksImlkcF9jbGFpbXMiOnsidXNlcm5hbWUiOiJhcmVlYm5peWFzQGdtYWlsLmNvbSJ9LCJpYXQiOjE2NTk4NzY0MDksImp0aSI6ImJiYzNlYzc5LWNhNjEtNDEyMC04NDU1LWE2YjY0MTA2NGU4NiJ9.oHeXRa8H331CxpVUoQgir3zOhFkPkVUZlkW_u-yTI3iISMixDTVXSxMAuM9Opois0qQhmC6ItxfqOHz-5HZWlo73kohPeG2acS03bgj3JCrPFDvhThimAjqfisk162Oz1ho0eHReCQqIYavET8c2hikHYe0OchW97YTdvbwIDPkcZW82mcKLSn51uRxPaCKYt21TVMYGQ46LVWtU8Ygv_w9nbFDP5S_4PtcJ3KigQqMSXv14nQQHxX72Sn3GdNS7lD__zbkHMIkq_jPK61m_GU_wqEN7_gRuiUylJ7NW9QK14BuprOx3tDH8ychzPj9lacxZN_dVr6y1OYwF8BEM1MdJwsmYOjnkYSwINOFPT4UvFf9vbaJffQCe1ESPVmz9soyBAkPyjA-oXt65YhZXrwgSbYKl4wEJOHaiYUx1oesLusSeD2KrqT6nvHibW144f2blLiRTfY0JUanwtN7d4U8NdeitUncBCM6czQzx9C5wuyrAvlC7tAX_lKzPT1dza8A8_mw1rbXTbIDF92a5Vfo-BJF8cN6sgk1-PQBcqSxFucReLXY2A8m4ubG64KafYyy0a6hfvJBHhJK96eZbzDyyjh3zdQoJJyhJ4wRy3wG7zmn5Fr_aO9vkVt-hx146Jhz_hFIY98H435KK_y_rt23jefz8bxf_T40WY-gjtUg";
-                    // // console.log(accessToken)
-                    // myHeaders.append("Authorization", "Bearer eyJ4NXQiOiJNV1E1TldVd1lXWmlNbU16WlRJek16ZG1NekJoTVdNNFlqUXlNalZoTldNNE5qaGtNR1JtTnpGbE1HSTNaRGxtWW1Rek5tRXlNemhoWWpCaU5tWmhZdyIsImtpZCI6Ik1XUTVOV1V3WVdaaU1tTXpaVEl6TXpkbU16QmhNV000WWpReU1qVmhOV000Tmpoa01HUm1OekZsTUdJM1pEbG1ZbVF6Tm1FeU16aGhZakJpTm1aaFl3X1JTMjU2IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI0MDZiZDFhZC1iODQxLTQ0NDQtYWNiNS1hY2I3MTg5MTE5MzgiLCJhdXQiOiJBUFBMSUNBVElPTl9VU0VSIiwiYXVkIjoiWEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYSIsIm5iZiI6MTY1OTg5MjkwMSwiYXpwIjoiWEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYSIsInNjb3BlIjoiZGVmYXVsdCIsImlzcyI6Imh0dHBzOlwvXC9zdHMuY2hvcmVvLmRldjo0NDNcL29hdXRoMlwvdG9rZW4iLCJleHAiOjE2NTk4OTY1MDEsImlkcF9jbGFpbXMiOnsidXNlcm5hbWUiOiJhcmVlYm5peWFzQGdtYWlsLmNvbSJ9LCJpYXQiOjE2NTk4OTI5MDEsImp0aSI6ImViNWY3NDk0LWRjYjktNDg3Mi04MWVjLWJiMWIxZDI4ZjU3OSJ9.a_-1jVdjXMHUoNjv1it80GbrwgMRRWlgddLaCgREagSG4juW6sJc0koHNQ-dNGUIJiZ85aMJ7GfsZW1UEF1i4cAZo4JmkN-vKS_jiV9LjfYVA-wzmbe157YL2vpW2RZH_CM_F7op5106Y5fNxlbKvwGTk55PIRndYpGC7DsNBt7XIEh1Wzz1sk3bpkUM1ATVhCnUYMoYZrtkjM1iOFKG4BVAk8XEJUgQ5ZPodieGDowN1RqvwNDruJam0IIQyu41XA7UN1FeE78pD9DN-yQ2slpA66pw9tFOpoP9R8vK8JIEXrDsQtS75GoEtxqRTEZ5cScGeNOU3RS32--BvCEqM3iHDZiUElHwR8gANAw1cjnEjoRaRqIKc0m1b5ZVWh4NMzyBvDa0z9LjBf3pV1ltHpWvTJqS8LpgfVKRppMAMqnfDtHiNoX6wHjmzTeB6JfU4v_ixGBLuY-NpoFeH1K_6o_w4aoP5klMx4WbeSy307FLpZdpouBfZ8GpV7LzkLXAqsn2tTBn_rmDYtPUNVatQWSyWVr2_sBobt_HGFRF9u7zVRHGgrQMnV7ndIWjMmjU6fvLSVvOEu3GNS9hZ2RsrwVY73xIp75iOSX8o2WsZmFbEF8VjU_H63MXPNl3-CRFz3WJJ7xpr0153DvkaJ5ZGi034EhylfR-rnqAmpLaGoY");
-
-                    // var requestOptions = {
-                    //   method: 'GET',
-                    //   headers: myHeaders,
-                    //   redirect: 'follow',
-                    // };
-
-                    // fetch("https://b4baf3d6-1f2c-4895-9f5c-aeecc00e7aef-prod.e1-us-east-azure.choreoapis.dev/knmr/choreogramacheckintegrationapi/1.0.0/validate", {params: {nic: data.NIC, address: data.Address, phone: data.PhoneNo}, requestOptions})
-                    //   .then(response => response.text())
-                    //   .then(result => console.log(result))
-                    //   .catch(error => console.log('error', error));
 
                     var config = {
                         method: 'get',
-                        url: 'https://b4baf3d6-1f2c-4895-9f5c-aeecc00e7aef-prod.e1-us-east-azure.choreoapis.dev/knmr/choreogramacheckintegrationapi/1.0.0/validate?nic='+data.NIC+'&address='+encodedAddress+'&phone='+data.PhoneNo ,
+                        url: 'https://b4baf3d6-1f2c-4895-9f5c-aeecc00e7aef-prod.e1-us-east-azure.choreoapis.dev/knmr/choreogramacheckintegrationapi/1.0.0/validate?nic=' + data.NIC + '&address=' + encodedAddress + '&phone=' + data.PhoneNo,
                         headers: {
                             'Authorization': 'Bearer ' + localStorage.getItem('auth-token')
                         }
@@ -147,6 +114,10 @@ function Search() {
                     axios(config)
                         .then(function (response) {
                             console.log(JSON.stringify(response.data));
+                            localStorage.setItem('response', response.data.valid);
+                            localStorage.setItem('responseMessage', response.data.msg);
+                            console.log(localStorage.getItem('response'));
+                            console.log(localStorage.getItem('responseMessage'));
                         })
                         .catch(function (error) {
                             console.log(error);
@@ -176,15 +147,187 @@ function Search() {
                         </div>
                     </div>
                     <p>{errors.PhoneNo?.message}</p>
-
                     <button onClick={validateResponse}>Apply for a Grama Certificate </button>
                     <div className='or'><h2>OR</h2></div>
-                    <button onClick={validateResponse}>Check status of Certificate</button>
+
+                    <button onClick={() => setIsOpen(true)}>Check status</button>
+                    <Modal isOpen={modalIsOpen}>
+                        {console.log("the true we want: " + localStorage.getItem('response'))}
+                        {localStorage.getItem('response') == "true" ? <div><p className='title'>Your certificate is ready</p><Container>
+                            <PoliceCertificationStackStackRow>
+                                <PoliceCertificationStackStack>
+                                    <PoliceCertificationStack>
+                                        <PoliceCertification>Grama Certification</PoliceCertification>
+                                        <Rect3></Rect3>
+                                    </PoliceCertificationStack>
+                                    <LoremIpsum>
+                                        This is to certify person holding National Identity card
+                                        bearing number{"\n"}
+                                        {" " + localStorage.getItem('nic')} who has been residing at {"\n"}
+                                        {" " + localStorage.getItem('address')} in my police station area to{"\n"}has not been
+                                        involved in any criminal activities, nor has he/she come to the
+                                        {"\n"}adverse notice of during the period of residence in my area.
+                                    </LoremIpsum>
+                                    <Rect></Rect>
+                                    <Auther>
+                                        Authorised by officer in charge{"\n"}
+                                        Village Officer{"\n"}
+                                        Negombo
+                                    </Auther>
+                                    <Auther1>To Whom It May Concern,</Auther1>
+                                    <Image
+                                        src={policePng}
+                                    ></Image>
+                                    <Date>DATE :</Date>
+                                </PoliceCertificationStackStack>
+                            </PoliceCertificationStackStackRow>
+                        </Container>
+                        </div>
+                            : localStorage.getItem('responseMessage') == "ID validation failed" ? <p>ID Validation failed, your record does not exist in your local ID office. Please visit your local ID office before applying for certifcate.</p>
+                                : localStorage.getItem('responseMessage') == "Address validation failed" ? <p>Address validation failed, Your ID does not match address. Please update your address in the registry before applying</p> : <p>Please try again later!</p>}
+                        <button onClick={() => setIsOpen(false)}>Close</button>
+                    </Modal>
+
                 </form>
             </div>
         </div>
 
     )
 }
+
+const Container = styled.div`
+  display: flex;
+  background-color: rgba(213,254,227,0);
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+`;
+
+const PoliceCertification = styled.span`
+  font-family: Roboto;
+  top: 46px;
+  left: 80px;
+  position: absolute;
+  font-style: normal;
+  font-weight: 700;
+  color: #121212;
+  height: 49px;
+  width: 960px;
+  font-size: 35px;
+  text-align: center;
+`;
+
+const Rect3 = styled.div`
+  top: 0px;
+  left: 0px;
+  width: 1119px;
+  height: 646px;
+  position: absolute;
+  border-width: 4px;
+  border-color: #000000;
+  border-style: solid;
+`;
+
+const PoliceCertificationStack = styled.div`
+  top: 0px;
+  left: 0px;
+  width: 1119px;
+  height: 646px;
+  position: absolute;
+`;
+
+const LoremIpsum = styled.span`
+  font-family: Roboto;
+  top: 231px;
+  position: absolute;
+  font-style: normal;
+  font-weight: 400;
+  color: #121212;
+  font-size: 19px;
+  left: 569px;
+`;
+
+const Rect = styled.div`
+  top: 95px;
+  width: 960px;
+  height: 5px;
+  position: absolute;
+  background-color: rgba(0,0,0,0.54);
+  left: 80px;
+`;
+
+const Auther = styled.span`
+  font-family: Roboto;
+  top: 468px;
+  left: 569px;
+  position: absolute;
+  font-style: normal;
+  font-weight: 700;
+  color: #121212;
+  height: 74px;
+  width: 418px;
+  font-size: 18px;
+  text-align: left;
+`;
+
+const Auther1 = styled.span`
+  font-family: Roboto;
+  top: 168px;
+  left: 569px;
+  position: absolute;
+  font-style: normal;
+  font-weight: 700;
+  color: #121212;
+  height: 37px;
+  width: 277px;
+  font-size: 18px;
+  text-align: left;
+`;
+
+const Image = styled.img`
+  top: 117px;
+  left: 116px;
+  width: 382px;
+  height: 452px;
+  position: absolute;
+  object-fit: contain;
+`;
+
+const Date = styled.span`
+  font-family: Roboto;
+  top: 138px;
+  left: 569px;
+  position: absolute;
+  font-style: normal;
+  font-weight: 700;
+  color: #121212;
+  font-size: 18px;
+`;
+
+const PoliceCertificationStackStack = styled.div`
+  width: 1119px;
+  height: 646px;
+  position: relative;
+`;
+
+const Rect2 = styled.div`
+  width: 1142px;
+  height: 626px;
+  border-width: 4px;
+  border-color: #000000;
+  margin-left: 253px;
+  margin-top: 22px;
+  border-style: solid;
+`;
+
+const PoliceCertificationStackStackRow = styled.div`
+  height: 648px;
+  flex-direction: row;
+  display: flex;
+  flex: 1 1 0%;
+  margin-right: -1291px;
+  margin-left: 143px;
+  margin-top: 49px;
+`;
 
 export default Search

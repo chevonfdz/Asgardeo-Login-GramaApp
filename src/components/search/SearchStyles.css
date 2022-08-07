@@ -87,6 +87,24 @@
     text-align: center;
 }
 
+.title {
+    flex: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.7rem;
+  text-align: center;
+  }
+
+/* #closeBtn{
+    flex: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.7rem;
+    text-align: center;
+} */
+
 
 @media screen and (max-width: 940px) {
     .search .container {
