@@ -13,6 +13,7 @@ function Search() {
     const { register, handleSubmit, formState: {errors} } = useForm();
     const [NIC, setNIC] = useState('');
     const [Address, setAddress] = useState('');
+    const [{PhoneNo}, setPhoneNo] = useState('');
     const { state, getIDToken } = useAuthContext();
 
     const obtainAccessToken = () => {
@@ -75,7 +76,7 @@ function Search() {
           redirect: 'follow'
         };
         
-        fetch("https://b4baf3d6-1f2c-4895-9f5c-aeecc00e7aef-prod.e1-us-east-azure.choreoapis.dev/knmr/choreogramacheckintegrationapi/1.0.0/validate?nic="+NIC+"&address=20%2F9%20Symonds%20Road%2C%2010&phone=%2B94712181673", requestOptions)
+        fetch("https://b4baf3d6-1f2c-4895-9f5c-aeecc00e7aef-prod.e1-us-east-azure.choreoapis.dev/knmr/choreogramacheckintegrationapi/1.0.0/validate?nic="+NIC+"&address="+ Address+"&phone="+ PhoneNo, requestOptions)
           .then(response => response.text())
           .then(result => console.log(result))
           .catch(error => console.log('error', error));
@@ -125,6 +126,13 @@ function Search() {
 
                     </div>
                     <p>{errors.Address?.message}</p>
+                    <div className="phoneno">
+                        <div className="input-wrap">
+                            <label>Enter Phone Number</label>
+                            <input {...register("PhoneNo", { required: "This is required", maxLength: {value: 12, message: "Max length is 12"} })} placeholder = "Phone Number here"/>
+                        </div>
+                    </div>
+                    <p>{errors.PhoneNo?.message}</p>
 
                     <button onClick={validateResponse}>Apply for a Grama Certificate </button>
                     <div className='or'><h2>OR</h2></div>
