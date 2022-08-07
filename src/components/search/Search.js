@@ -62,7 +62,7 @@ function Search() {
             console.log("Did not pass the token")
         }
         
-    }, []);
+    }, [state.isAuthenticated]);
 
     const obtainRequest = () => {
 
