@@ -60,7 +60,6 @@ function Search() {
             obtainAccessToken();
 
         } else {
-            sessionStorage.clear();
             localStorage.clear();
         }
 
