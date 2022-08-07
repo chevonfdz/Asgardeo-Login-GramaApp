@@ -17,7 +17,7 @@ function Search() {
 
     const obtainIDToken = () => {
         getIDToken().then((IDToken)=>{
-            console.log(IDToken)
+            //console.log(IDToken)
             // let takeToken = "eyJ4NXQiOiJZak0xWkRGa01EVTVPV00wTW1NNE1HWTVPR1U1TUdKbE5qWmhPVFV5TnpVM1pUUTFaR0k0WkdGa05qRTJPVGxpTVdZek5XTmpOR0psTWpFMU16Y3lOdyIsImtpZCI6IllqTTFaREZrTURVNU9XTTBNbU00TUdZNU9HVTVNR0psTmpaaE9UVXlOelUzWlRRMVpHSTRaR0ZrTmpFMk9UbGlNV1l6TldOak5HSmxNakUxTXpjeU53X1JTMjU2IiwiYWxnIjoiUlMyNTYifQ.eyJpc2siOiJhNjkxYjM5MmFkZjA3ZGQ2MDE0NWZkOGUwYTExMGNmNWZmYWVjZjQ4MDZjYmYzNGI0YWUzYjkxZTQ3MjM3MDFjIiwiYXRfaGFzaCI6IlE3dmViSFNONlFjbHZjcWZiRml4bHciLCJhdWQiOlsiR2dqM0prdHV1cElaVWdmX1F2WWcxRU5jZDFFYSIsImh0dHBzOlwvXC9zdHMuY2hvcmVvLmRldlwvb2F1dGgyXC90b2tlbiJdLCJzdWIiOiI0MDZiZDFhZC1iODQxLTQ0NDQtYWNiNS1hY2I3MTg5MTE5MzgiLCJuYmYiOjE2NTk4NzMwNjcsImF6cCI6IkdnajNKa3R1dXBJWlVnZl9RdllnMUVOY2QxRWEiLCJhbXIiOlsicmVmcmVzaF90b2tlbiJdLCJpc3MiOiJodHRwczpcL1wvYXBpLmFzZ2FyZGVvLmlvXC90XC9hcmVlYlwvb2F1dGgyXC90b2tlbiIsImV4cCI6MTY1OTg3NjY2NywiaWF0IjoxNjU5ODczMDY3LCJ1c2VybmFtZSI6ImFyZWVibml5YXNAZ21haWwuY29tIn0.VohA1M_fOGNy-RH3nhjpYLt2WxyGg8dqPlBWKJJKaBBDLO78V1aIdlbHSz70JIv4MtKt3qtCoPnecBzjQvjFAqGn3DgEZgFJKAQXuphpcYnOs77T-xSOQ1tosXHgPWPEVUND18SH7Si9cTjr-u3Vp3SWdNGW32eE_EPwC-lTc3f7K4ytknoBPm2w2ivLKY_RsRMJEIEJFXp9edurEkVNDuqfpCfLAaLrT1d_jkkZ2NyqjNHRcpJP-96NXgavlSHQQ3EKRFWIM8E23lYD7Z-wOatdlrUhOZWG2cYbhilOmEqmhC7B04YGfaMtsH6b0-ZAgIhGD8U07USGQslMSBUDzg";
             return IDToken
         }
@@ -27,6 +27,7 @@ function Search() {
     useEffect(() => {
         if(state.isAuthenticated){
             let token = obtainIDToken()
+            console.log(token)
 
             var data = qs.stringify({
                 'grant_type': 'urn:ietf:params:oauth:grant-type:token-exchange',
