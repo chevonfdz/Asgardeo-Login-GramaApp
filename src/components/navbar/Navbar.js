@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BiSearch } from 'react-icons/bi'
 import { BsPerson } from 'react-icons/bs'
 import { HiOutlineMenuAlt4 } from 'react-icons/hi'
@@ -15,44 +15,68 @@ function Navbar() {
     const [nav, setNav] = useState(false)
     const handleNav = () => setNav(!nav)
     const { state, signIn, signOut, getAccessToken, getIDToken } = useAuthContext();
-    const obtainAccessToken = () => {
-        getAccessToken().then((accessToken) => {
-            console.log(accessToken);
-        })
-    };
+
 
     const obtainIDToken = () => {
         getIDToken().then((IDToken) => {
-            console.log(IDToken);
-            const data = {
-                'grant_type': 'urn:ietf:params:oauth:grant-type:token-exchange',
-                'subject_token': IDToken,
-                'subject_token_type': 'urn:ietf:params:oauth:token-type:jwt',
-                'requested_token_type': 'urn:ietf:params:oauth:token-type:jwt'
-            };
-
-            const options = {
-                method: 'POST',
-                headers: { 'content-type': 'application/x-www-form-urlencoded' },
-                data: qs.stringify(data),
-                url: 'https://sts.choreo.dev/oauth2/token'
-            };
-            axios(options)
-
+            console.log(IDToken)
         })
     };
-    //     getIDToken().then((IDToken) => {
-    //         console.log(IDToken);
 
-    //         const params = new URLSearchParams();
-    //         params.append('grant_type', 'urn:ietf:params:oauth:grant-type:token-exchange');
-    //         params.append('subject_token', 'eyJ4NXQiOiJZak0xWkRGa01EVTVPV00wTW1NNE1HWTVPR1U1TUdKbE5qWmhPVFV5TnpVM1pUUTFaR0k0WkdGa05qRTJPVGxpTVdZek5XTmpOR0psTWpFMU16Y3lOdyIsImtpZCI6IllqTTFaREZrTURVNU9XTTBNbU00TUdZNU9HVTVNR0psTmpaaE9UVXlOelUzWlRRMVpHSTRaR0ZrTmpFMk9UbGlNV1l6TldOak5HSmxNakUxTXpjeU53X1JTMjU2IiwiYWxnIjoiUlMyNTYifQ.eyJpc2siOiI4MjBkNGQ2OWI3MzNkYTg0OTEwNjUzNWMyYzA1MmI0OWQxN2ExMzlmZTU4NmNlMjVlNzExNTZjN2QxNjUxZDFhIiwiYXRfaGFzaCI6IjRqQWl1eUREVnY5T3h4dlFvdEVZcXciLCJzdWIiOiI0MDZiZDFhZC1iODQxLTQ0NDQtYWNiNS1hY2I3MTg5MTE5MzgiLCJhbXIiOlsiQmFzaWNBdXRoZW50aWNhdG9yIl0sImlzcyI6Imh0dHBzOlwvXC9hcGkuYXNnYXJkZW8uaW9cL3RcL2FyZWViXC9vYXV0aDJcL3Rva2VuIiwic2lkIjoiN2U0MGZkNmEtNGEwYy00OTYxLTk1NTEtMTE5YjFmMmU1NjYzIiwiYXVkIjpbIkdnajNKa3R1dXBJWlVnZl9RdllnMUVOY2QxRWEiLCJodHRwczpcL1wvc3RzLmNob3Jlby5kZXZcL29hdXRoMlwvdG9rZW4iXSwiY19oYXNoIjoiSjJMUUFkSmd4WHU4d0hSM2pDT1Y3QSIsIm5iZiI6MTY1OTg1Njc3MywiYXpwIjoiR2dqM0prdHV1cElaVWdmX1F2WWcxRU5jZDFFYSIsImV4cCI6MTY1OTg2MDM3MywiaWF0IjoxNjU5ODU2NzczLCJ1c2VybmFtZSI6ImFyZWVibml5YXNAZ21haWwuY29tIn0.YKIjUV6ieaqBNRNzCZxQoya50m4MErpV36r_E5TWLCSh0AAZ8ZTumC3tEH_QcR4CoG8srDUe2xawBvsl0OvbYgquzwupFNCWXPJw_AltKCoFNC-ZX_NUMVd7qGcGjmCCFC3bRy25L_KQLGAR4o1htlng-Ey0EWWet2AEbK3dIwl36rU4hfCnTa-DFOfjr9mvYYtQQtAskk1pBsp2wFigDelseIvGuxLYEYWAJ9o8KbGoBSPP8oPX0z44xM2ch3EB7UpLgLh2ayhrikmtPEKierttekINtF7FHHhJhohwDcgA4oenP53xoWzkFsjakMV3qBuJ8aJhciy6YtigEq0AGQ');
-    //         params.append('subject_token_type', 'urn:ietf:params:oauth:token-type:jwt');
-    //         params.append('requested_token_type', 'urn:ietf:params:oauth:token-type:jwt');
-    //         axios.post("https://sts.choreo.dev/oauth2/token",params).then((response) => { console.log(response) }).catch((error) => { console.log(error); });
-    //     }
-    //     )
-    // };
+    useEffect(() => {
+        var data = qs.stringify({
+            'grant_type': 'urn:ietf:params:oauth:grant-type:token-exchange',
+            'subject_token': 'eyJ4NXQiOiJZak0xWkRGa01EVTVPV00wTW1NNE1HWTVPR1U1TUdKbE5qWmhPVFV5TnpVM1pUUTFaR0k0WkdGa05qRTJPVGxpTVdZek5XTmpOR0psTWpFMU16Y3lOdyIsImtpZCI6IllqTTFaREZrTURVNU9XTTBNbU00TUdZNU9HVTVNR0psTmpaaE9UVXlOelUzWlRRMVpHSTRaR0ZrTmpFMk9UbGlNV1l6TldOak5HSmxNakUxTXpjeU53X1JTMjU2IiwiYWxnIjoiUlMyNTYifQ.eyJpc2siOiJhNjkxYjM5MmFkZjA3ZGQ2MDE0NWZkOGUwYTExMGNmNWZmYWVjZjQ4MDZjYmYzNGI0YWUzYjkxZTQ3MjM3MDFjIiwiYXRfaGFzaCI6IlE3dmViSFNONlFjbHZjcWZiRml4bHciLCJhdWQiOlsiR2dqM0prdHV1cElaVWdmX1F2WWcxRU5jZDFFYSIsImh0dHBzOlwvXC9zdHMuY2hvcmVvLmRldlwvb2F1dGgyXC90b2tlbiJdLCJzdWIiOiI0MDZiZDFhZC1iODQxLTQ0NDQtYWNiNS1hY2I3MTg5MTE5MzgiLCJuYmYiOjE2NTk4NzMwNjcsImF6cCI6IkdnajNKa3R1dXBJWlVnZl9RdllnMUVOY2QxRWEiLCJhbXIiOlsicmVmcmVzaF90b2tlbiJdLCJpc3MiOiJodHRwczpcL1wvYXBpLmFzZ2FyZGVvLmlvXC90XC9hcmVlYlwvb2F1dGgyXC90b2tlbiIsImV4cCI6MTY1OTg3NjY2NywiaWF0IjoxNjU5ODczMDY3LCJ1c2VybmFtZSI6ImFyZWVibml5YXNAZ21haWwuY29tIn0.VohA1M_fOGNy-RH3nhjpYLt2WxyGg8dqPlBWKJJKaBBDLO78V1aIdlbHSz70JIv4MtKt3qtCoPnecBzjQvjFAqGn3DgEZgFJKAQXuphpcYnOs77T-xSOQ1tosXHgPWPEVUND18SH7Si9cTjr-u3Vp3SWdNGW32eE_EPwC-lTc3f7K4ytknoBPm2w2ivLKY_RsRMJEIEJFXp9edurEkVNDuqfpCfLAaLrT1d_jkkZ2NyqjNHRcpJP-96NXgavlSHQQ3EKRFWIM8E23lYD7Z-wOatdlrUhOZWG2cYbhilOmEqmhC7B04YGfaMtsH6b0-ZAgIhGD8U07USGQslMSBUDzg',
+            'subject_token_type': 'urn:ietf:params:oauth:token-type:jwt',
+            'requested_token_type': 'urn:ietf:params:oauth:token-type:jwt'
+        });
+        var config = {
+            method: 'post',
+            url: 'https://sts.choreo.dev/oauth2/token',
+            headers: {
+                'Authorization': 'Basic WEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYTp5UDdpXzVTZnFfSmhyeUZSeFk1bG9ySUtVdzhh',
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Cookie': 'apim=1659854301.997.97.729965|dcb1dc1c03c8f17e5aa485d6222013b8'
+            },
+            data: data
+        };
+
+        axios(config)
+            .then(function (response) {
+                let y = response.data.access_token;
+                localStorage.setItem('auth-token', y)
+                console.log(localStorage.getItem('auth-token'))
+                console.log(y)
+
+            })
+
+            .catch(function (error) {
+                console.log(error);
+            });
+
+
+    }, []);
+
+    const obtainRequest = () => {
+
+        var myHeaders = new Headers();
+        var accessToken = "eyJ4NXQiOiJNV1E1TldVd1lXWmlNbU16WlRJek16ZG1NekJoTVdNNFlqUXlNalZoTldNNE5qaGtNR1JtTnpGbE1HSTNaRGxtWW1Rek5tRXlNemhoWWpCaU5tWmhZdyIsImtpZCI6Ik1XUTVOV1V3WVdaaU1tTXpaVEl6TXpkbU16QmhNV000WWpReU1qVmhOV000Tmpoa01HUm1OekZsTUdJM1pEbG1ZbVF6Tm1FeU16aGhZakJpTm1aaFl3X1JTMjU2IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI0MDZiZDFhZC1iODQxLTQ0NDQtYWNiNS1hY2I3MTg5MTE5MzgiLCJhdXQiOiJBUFBMSUNBVElPTl9VU0VSIiwiYXVkIjoiWEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYSIsIm5iZiI6MTY1OTg3NjQwOSwiYXpwIjoiWEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYSIsInNjb3BlIjoiZGVmYXVsdCIsImlzcyI6Imh0dHBzOlwvXC9zdHMuY2hvcmVvLmRldjo0NDNcL29hdXRoMlwvdG9rZW4iLCJleHAiOjE2NTk4ODAwMDksImlkcF9jbGFpbXMiOnsidXNlcm5hbWUiOiJhcmVlYm5peWFzQGdtYWlsLmNvbSJ9LCJpYXQiOjE2NTk4NzY0MDksImp0aSI6ImJiYzNlYzc5LWNhNjEtNDEyMC04NDU1LWE2YjY0MTA2NGU4NiJ9.oHeXRa8H331CxpVUoQgir3zOhFkPkVUZlkW_u-yTI3iISMixDTVXSxMAuM9Opois0qQhmC6ItxfqOHz-5HZWlo73kohPeG2acS03bgj3JCrPFDvhThimAjqfisk162Oz1ho0eHReCQqIYavET8c2hikHYe0OchW97YTdvbwIDPkcZW82mcKLSn51uRxPaCKYt21TVMYGQ46LVWtU8Ygv_w9nbFDP5S_4PtcJ3KigQqMSXv14nQQHxX72Sn3GdNS7lD__zbkHMIkq_jPK61m_GU_wqEN7_gRuiUylJ7NW9QK14BuprOx3tDH8ychzPj9lacxZN_dVr6y1OYwF8BEM1MdJwsmYOjnkYSwINOFPT4UvFf9vbaJffQCe1ESPVmz9soyBAkPyjA-oXt65YhZXrwgSbYKl4wEJOHaiYUx1oesLusSeD2KrqT6nvHibW144f2blLiRTfY0JUanwtN7d4U8NdeitUncBCM6czQzx9C5wuyrAvlC7tAX_lKzPT1dza8A8_mw1rbXTbIDF92a5Vfo-BJF8cN6sgk1-PQBcqSxFucReLXY2A8m4ubG64KafYyy0a6hfvJBHhJK96eZbzDyyjh3zdQoJJyhJ4wRy3wG7zmn5Fr_aO9vkVt-hx146Jhz_hFIY98H435KK_y_rt23jefz8bxf_T40WY-gjtUg";
+        console.log(accessToken)
+        myHeaders.append("Authorization", "Bearer " +localStorage.getItem('auth-token'));
+        
+        var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow'
+        };
+        
+        fetch("https://b4baf3d6-1f2c-4895-9f5c-aeecc00e7aef-prod.e1-us-east-azure.choreoapis.dev/knmr/choreogramacheckintegrationapi/1.0.0/validate?nic=196325521555&address=20%2F9%20Symonds%20Road%2C%2010&phone=%2B94712181673", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+
+    };
+
 
     return (
         <div name='home' className={nav ? 'navbar navbar-bg' : 'navbar'}>
@@ -75,10 +99,9 @@ function Navbar() {
                             : <li><button onClick={() => signIn()}>Login</button></li>
                     }
                 </div>
-                <li><button onClick={() => obtainAccessToken()}>Get Access Token</button></li>
                 <li><button onClick={() => obtainIDToken()}>Get ID Token</button></li>
 
-                {/* <li><button onClick={() => obtainIDToken()}>Get ID Token</button></li> */}
+                <li><button onClick={() => obtainRequest()}>Request</button></li>
 
 
             </ul>
@@ -118,27 +141,5 @@ function Navbar() {
 
     )
 }
-
-// function obtainIDToken() {
-
-//     // const params = new URLSearchParams();
-
-//     const data = {
-//         'grant_type': 'urn:ietf:params:oauth:grant-type:token-exchange',
-//         'subject_token': 'eyJ4NXQiOiJZak0xWkRGa01EVTVPV00wTW1NNE1HWTVPR1U1TUdKbE5qWmhPVFV5TnpVM1pUUTFaR0k0WkdGa05qRTJPVGxpTVdZek5XTmpOR0psTWpFMU16Y3lOdyIsImtpZCI6IllqTTFaREZrTURVNU9XTTBNbU00TUdZNU9HVTVNR0psTmpaaE9UVXlOelUzWlRRMVpHSTRaR0ZrTmpFMk9UbGlNV1l6TldOak5HSmxNakUxTXpjeU53X1JTMjU2IiwiYWxnIjoiUlMyNTYifQ.eyJpc2siOiI4MjBkNGQ2OWI3MzNkYTg0OTEwNjUzNWMyYzA1MmI0OWQxN2ExMzlmZTU4NmNlMjVlNzExNTZjN2QxNjUxZDFhIiwiYXRfaGFzaCI6IklPdEVJbmNXc0QxSDA3cUZvRXpzZFEiLCJzdWIiOiI0MDZiZDFhZC1iODQxLTQ0NDQtYWNiNS1hY2I3MTg5MTE5MzgiLCJhbXIiOlsiQmFzaWNBdXRoZW50aWNhdG9yIl0sImlzcyI6Imh0dHBzOlwvXC9hcGkuYXNnYXJkZW8uaW9cL3RcL2FyZWViXC9vYXV0aDJcL3Rva2VuIiwic2lkIjoiN2U0MGZkNmEtNGEwYy00OTYxLTk1NTEtMTE5YjFmMmU1NjYzIiwiYXVkIjpbIkdnajNKa3R1dXBJWlVnZl9RdllnMUVOY2QxRWEiLCJodHRwczpcL1wvc3RzLmNob3Jlby5kZXZcL29hdXRoMlwvdG9rZW4iXSwiY19oYXNoIjoiaExJM1lQSnp2Rmh5djVCMXgwRkVIZyIsIm5iZiI6MTY1OTg1OTcyNSwiYXpwIjoiR2dqM0prdHV1cElaVWdmX1F2WWcxRU5jZDFFYSIsImV4cCI6MTY1OTg2MzMyNSwiaWF0IjoxNjU5ODU5NzI1LCJ1c2VybmFtZSI6ImFyZWVibml5YXNAZ21haWwuY29tIn0.T3FKyT77Nn-g4pmrFjU5VV7KpnZFYAHrsb7aw2R0kUx7wZGwaFDBrX_ZhYd6qMsN_K9SmTiTdvFPfFtl3ovvTmCCG8Hvm-hw6jnKYYKve4KetmjW4HPPKlyRxXYFd9-5X6yR6uVhkfbbEh8samQdHwgGYHIAZe-UeCwe_jm1saAHBJtkVFuM_OUd3zAeUboot9vbCNpSn3fIXE_TN73Tw7-rUDPu4ph6qu_qyFEIG_abyxnlRepWSCR1d13Q0QGym4tj5lPMYexqXLyHHH14YUiMLLxbpbhOYBmY90YjMT88VH1-my1lQwi1ozkJ1B8hTo9mdGd71oGydSjJH23Faw',
-//         'subject_token_type': 'urn:ietf:params:oauth:token-type:jwt',
-//         'requested_token_type': 'urn:ietf:params:oauth:token-type:jwt'
-//     };
-
-//     const options = {
-//         method: 'POST',
-//         headers: { 'content-type': 'application/x-www-form-urlencoded' },
-//         data: qs.stringify(data),
-//         url: 'https://sts.choreo.dev/oauth2/token'
-//     };
-
-//     axios(options)
-
-// };
 
 export default Navbar
