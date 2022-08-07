@@ -1,5 +1,5 @@
 import React from 'react'
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import './SearchStyles.css'
 import { useForm } from 'react-hook-form'
 import { useAuthContext } from "@asgardeo/auth-react";
@@ -10,14 +10,14 @@ import Video from '../../assets/GRMA CHECK.mp4'
 
 
 function Search() {
-    const { register, handleSubmit, formState: {errors} } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     // const [NIC, setNIC] = useState('');
     // const [Address, setAddress] = useState('');
     // const [{PhoneNo}, setPhoneNo] = useState('');
     const { state, getIDToken } = useAuthContext();
 
     const obtainAccessToken = () => {
-        getIDToken().then((IDToken)=>{
+        getIDToken().then((IDToken) => {
             console.log("ID token given in the beginning: " + IDToken)
             var data = qs.stringify({
                 'grant_type': 'urn:ietf:params:oauth:grant-type:token-exchange',
@@ -35,32 +35,33 @@ function Search() {
                 },
                 data: data
             };
-    
+
             axios(config)
                 .then(function (response) {
                     let y = response.data.access_token;
                     localStorage.setItem('auth-token', y)
                     console.log(localStorage.getItem('auth-token'))
                     console.log(y)
-    
+
                 })
-    
+
                 .catch(function (error) {
                     console.log(error);
                 });
-    
+
         }
-    )};
-    
+        )
+    };
+
 
     useEffect(() => {
-        if(state.isAuthenticated){
+        if (state.isAuthenticated) {
             obtainAccessToken();
-    
+
         } else {
             console.log("Did not pass the token")
         }
-        
+
     }, [state.isAuthenticated]);
 
     const validateResponse = () => {
@@ -72,14 +73,14 @@ function Search() {
         // // var accessToken = "eyJ4NXQiOiJNV1E1TldVd1lXWmlNbU16WlRJek16ZG1NekJoTVdNNFlqUXlNalZoTldNNE5qaGtNR1JtTnpGbE1HSTNaRGxtWW1Rek5tRXlNemhoWWpCaU5tWmhZdyIsImtpZCI6Ik1XUTVOV1V3WVdaaU1tTXpaVEl6TXpkbU16QmhNV000WWpReU1qVmhOV000Tmpoa01HUm1OekZsTUdJM1pEbG1ZbVF6Tm1FeU16aGhZakJpTm1aaFl3X1JTMjU2IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI0MDZiZDFhZC1iODQxLTQ0NDQtYWNiNS1hY2I3MTg5MTE5MzgiLCJhdXQiOiJBUFBMSUNBVElPTl9VU0VSIiwiYXVkIjoiWEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYSIsIm5iZiI6MTY1OTg3NjQwOSwiYXpwIjoiWEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYSIsInNjb3BlIjoiZGVmYXVsdCIsImlzcyI6Imh0dHBzOlwvXC9zdHMuY2hvcmVvLmRldjo0NDNcL29hdXRoMlwvdG9rZW4iLCJleHAiOjE2NTk4ODAwMDksImlkcF9jbGFpbXMiOnsidXNlcm5hbWUiOiJhcmVlYm5peWFzQGdtYWlsLmNvbSJ9LCJpYXQiOjE2NTk4NzY0MDksImp0aSI6ImJiYzNlYzc5LWNhNjEtNDEyMC04NDU1LWE2YjY0MTA2NGU4NiJ9.oHeXRa8H331CxpVUoQgir3zOhFkPkVUZlkW_u-yTI3iISMixDTVXSxMAuM9Opois0qQhmC6ItxfqOHz-5HZWlo73kohPeG2acS03bgj3JCrPFDvhThimAjqfisk162Oz1ho0eHReCQqIYavET8c2hikHYe0OchW97YTdvbwIDPkcZW82mcKLSn51uRxPaCKYt21TVMYGQ46LVWtU8Ygv_w9nbFDP5S_4PtcJ3KigQqMSXv14nQQHxX72Sn3GdNS7lD__zbkHMIkq_jPK61m_GU_wqEN7_gRuiUylJ7NW9QK14BuprOx3tDH8ychzPj9lacxZN_dVr6y1OYwF8BEM1MdJwsmYOjnkYSwINOFPT4UvFf9vbaJffQCe1ESPVmz9soyBAkPyjA-oXt65YhZXrwgSbYKl4wEJOHaiYUx1oesLusSeD2KrqT6nvHibW144f2blLiRTfY0JUanwtN7d4U8NdeitUncBCM6czQzx9C5wuyrAvlC7tAX_lKzPT1dza8A8_mw1rbXTbIDF92a5Vfo-BJF8cN6sgk1-PQBcqSxFucReLXY2A8m4ubG64KafYyy0a6hfvJBHhJK96eZbzDyyjh3zdQoJJyhJ4wRy3wG7zmn5Fr_aO9vkVt-hx146Jhz_hFIY98H435KK_y_rt23jefz8bxf_T40WY-gjtUg";
         // // console.log(accessToken)
         // myHeaders.append("Authorization", "Bearer " +localStorage.getItem('auth-token'));
-        
+
         // var requestOptions = {
         //   method: 'GET',
         //   headers: myHeaders,
         //   redirect: 'follow',
         //   params: {nic: NIC, address: Address, phone: PhoneNo}
         // };
-        
+
         // fetch("https://b4baf3d6-1f2c-4895-9f5c-aeecc00e7aef-prod.e1-us-east-azure.choreoapis.dev/knmr/choreogramacheckintegrationapi/1.0.0/validate", requestOptions)
         //   .then(response => response.text())
         //   .then(result => console.log(result))
@@ -112,36 +113,58 @@ function Search() {
                     <h2>Fill the form here to generate your Grama certificate.Check below steps to generate the certificate</h2>
                 </div>
                 <form onSubmit={handleSubmit((data) => {
-                    console.log(data)
-            
-                    var myHeaders = new Headers();
-                    // var accessToken = "eyJ4NXQiOiJNV1E1TldVd1lXWmlNbU16WlRJek16ZG1NekJoTVdNNFlqUXlNalZoTldNNE5qaGtNR1JtTnpGbE1HSTNaRGxtWW1Rek5tRXlNemhoWWpCaU5tWmhZdyIsImtpZCI6Ik1XUTVOV1V3WVdaaU1tTXpaVEl6TXpkbU16QmhNV000WWpReU1qVmhOV000Tmpoa01HUm1OekZsTUdJM1pEbG1ZbVF6Tm1FeU16aGhZakJpTm1aaFl3X1JTMjU2IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI0MDZiZDFhZC1iODQxLTQ0NDQtYWNiNS1hY2I3MTg5MTE5MzgiLCJhdXQiOiJBUFBMSUNBVElPTl9VU0VSIiwiYXVkIjoiWEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYSIsIm5iZiI6MTY1OTg3NjQwOSwiYXpwIjoiWEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYSIsInNjb3BlIjoiZGVmYXVsdCIsImlzcyI6Imh0dHBzOlwvXC9zdHMuY2hvcmVvLmRldjo0NDNcL29hdXRoMlwvdG9rZW4iLCJleHAiOjE2NTk4ODAwMDksImlkcF9jbGFpbXMiOnsidXNlcm5hbWUiOiJhcmVlYm5peWFzQGdtYWlsLmNvbSJ9LCJpYXQiOjE2NTk4NzY0MDksImp0aSI6ImJiYzNlYzc5LWNhNjEtNDEyMC04NDU1LWE2YjY0MTA2NGU4NiJ9.oHeXRa8H331CxpVUoQgir3zOhFkPkVUZlkW_u-yTI3iISMixDTVXSxMAuM9Opois0qQhmC6ItxfqOHz-5HZWlo73kohPeG2acS03bgj3JCrPFDvhThimAjqfisk162Oz1ho0eHReCQqIYavET8c2hikHYe0OchW97YTdvbwIDPkcZW82mcKLSn51uRxPaCKYt21TVMYGQ46LVWtU8Ygv_w9nbFDP5S_4PtcJ3KigQqMSXv14nQQHxX72Sn3GdNS7lD__zbkHMIkq_jPK61m_GU_wqEN7_gRuiUylJ7NW9QK14BuprOx3tDH8ychzPj9lacxZN_dVr6y1OYwF8BEM1MdJwsmYOjnkYSwINOFPT4UvFf9vbaJffQCe1ESPVmz9soyBAkPyjA-oXt65YhZXrwgSbYKl4wEJOHaiYUx1oesLusSeD2KrqT6nvHibW144f2blLiRTfY0JUanwtN7d4U8NdeitUncBCM6czQzx9C5wuyrAvlC7tAX_lKzPT1dza8A8_mw1rbXTbIDF92a5Vfo-BJF8cN6sgk1-PQBcqSxFucReLXY2A8m4ubG64KafYyy0a6hfvJBHhJK96eZbzDyyjh3zdQoJJyhJ4wRy3wG7zmn5Fr_aO9vkVt-hx146Jhz_hFIY98H435KK_y_rt23jefz8bxf_T40WY-gjtUg";
-                    // console.log(accessToken)
-                    myHeaders.append("Authorization", "Bearer " +localStorage.getItem('auth-token'));
-                    
-                    var requestOptions = {
-                      method: 'GET',
-                      headers: myHeaders,
-                      redirect: 'follow',
+                    const encodedAddress = encodeURIComponent(data.Address);
+                    console.log(data.NIC)
+                    console.log(data.Address)
+                    console.log(data.PhoneNo)
+                    console.log(encodedAddress);
+                    // const params = {nic:data.nic, address:data.NIC, phone: data.PhoneNo};
+
+                    // var myHeaders = new Headers();
+                    // // var accessToken = "eyJ4NXQiOiJNV1E1TldVd1lXWmlNbU16WlRJek16ZG1NekJoTVdNNFlqUXlNalZoTldNNE5qaGtNR1JtTnpGbE1HSTNaRGxtWW1Rek5tRXlNemhoWWpCaU5tWmhZdyIsImtpZCI6Ik1XUTVOV1V3WVdaaU1tTXpaVEl6TXpkbU16QmhNV000WWpReU1qVmhOV000Tmpoa01HUm1OekZsTUdJM1pEbG1ZbVF6Tm1FeU16aGhZakJpTm1aaFl3X1JTMjU2IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI0MDZiZDFhZC1iODQxLTQ0NDQtYWNiNS1hY2I3MTg5MTE5MzgiLCJhdXQiOiJBUFBMSUNBVElPTl9VU0VSIiwiYXVkIjoiWEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYSIsIm5iZiI6MTY1OTg3NjQwOSwiYXpwIjoiWEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYSIsInNjb3BlIjoiZGVmYXVsdCIsImlzcyI6Imh0dHBzOlwvXC9zdHMuY2hvcmVvLmRldjo0NDNcL29hdXRoMlwvdG9rZW4iLCJleHAiOjE2NTk4ODAwMDksImlkcF9jbGFpbXMiOnsidXNlcm5hbWUiOiJhcmVlYm5peWFzQGdtYWlsLmNvbSJ9LCJpYXQiOjE2NTk4NzY0MDksImp0aSI6ImJiYzNlYzc5LWNhNjEtNDEyMC04NDU1LWE2YjY0MTA2NGU4NiJ9.oHeXRa8H331CxpVUoQgir3zOhFkPkVUZlkW_u-yTI3iISMixDTVXSxMAuM9Opois0qQhmC6ItxfqOHz-5HZWlo73kohPeG2acS03bgj3JCrPFDvhThimAjqfisk162Oz1ho0eHReCQqIYavET8c2hikHYe0OchW97YTdvbwIDPkcZW82mcKLSn51uRxPaCKYt21TVMYGQ46LVWtU8Ygv_w9nbFDP5S_4PtcJ3KigQqMSXv14nQQHxX72Sn3GdNS7lD__zbkHMIkq_jPK61m_GU_wqEN7_gRuiUylJ7NW9QK14BuprOx3tDH8ychzPj9lacxZN_dVr6y1OYwF8BEM1MdJwsmYOjnkYSwINOFPT4UvFf9vbaJffQCe1ESPVmz9soyBAkPyjA-oXt65YhZXrwgSbYKl4wEJOHaiYUx1oesLusSeD2KrqT6nvHibW144f2blLiRTfY0JUanwtN7d4U8NdeitUncBCM6czQzx9C5wuyrAvlC7tAX_lKzPT1dza8A8_mw1rbXTbIDF92a5Vfo-BJF8cN6sgk1-PQBcqSxFucReLXY2A8m4ubG64KafYyy0a6hfvJBHhJK96eZbzDyyjh3zdQoJJyhJ4wRy3wG7zmn5Fr_aO9vkVt-hx146Jhz_hFIY98H435KK_y_rt23jefz8bxf_T40WY-gjtUg";
+                    // // console.log(accessToken)
+                    // myHeaders.append("Authorization", "Bearer eyJ4NXQiOiJNV1E1TldVd1lXWmlNbU16WlRJek16ZG1NekJoTVdNNFlqUXlNalZoTldNNE5qaGtNR1JtTnpGbE1HSTNaRGxtWW1Rek5tRXlNemhoWWpCaU5tWmhZdyIsImtpZCI6Ik1XUTVOV1V3WVdaaU1tTXpaVEl6TXpkbU16QmhNV000WWpReU1qVmhOV000Tmpoa01HUm1OekZsTUdJM1pEbG1ZbVF6Tm1FeU16aGhZakJpTm1aaFl3X1JTMjU2IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI0MDZiZDFhZC1iODQxLTQ0NDQtYWNiNS1hY2I3MTg5MTE5MzgiLCJhdXQiOiJBUFBMSUNBVElPTl9VU0VSIiwiYXVkIjoiWEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYSIsIm5iZiI6MTY1OTg5MjkwMSwiYXpwIjoiWEhaOW0ybUEyU3A5YXI0Sjc5bk9yS0xoS2ZjYSIsInNjb3BlIjoiZGVmYXVsdCIsImlzcyI6Imh0dHBzOlwvXC9zdHMuY2hvcmVvLmRldjo0NDNcL29hdXRoMlwvdG9rZW4iLCJleHAiOjE2NTk4OTY1MDEsImlkcF9jbGFpbXMiOnsidXNlcm5hbWUiOiJhcmVlYm5peWFzQGdtYWlsLmNvbSJ9LCJpYXQiOjE2NTk4OTI5MDEsImp0aSI6ImViNWY3NDk0LWRjYjktNDg3Mi04MWVjLWJiMWIxZDI4ZjU3OSJ9.a_-1jVdjXMHUoNjv1it80GbrwgMRRWlgddLaCgREagSG4juW6sJc0koHNQ-dNGUIJiZ85aMJ7GfsZW1UEF1i4cAZo4JmkN-vKS_jiV9LjfYVA-wzmbe157YL2vpW2RZH_CM_F7op5106Y5fNxlbKvwGTk55PIRndYpGC7DsNBt7XIEh1Wzz1sk3bpkUM1ATVhCnUYMoYZrtkjM1iOFKG4BVAk8XEJUgQ5ZPodieGDowN1RqvwNDruJam0IIQyu41XA7UN1FeE78pD9DN-yQ2slpA66pw9tFOpoP9R8vK8JIEXrDsQtS75GoEtxqRTEZ5cScGeNOU3RS32--BvCEqM3iHDZiUElHwR8gANAw1cjnEjoRaRqIKc0m1b5ZVWh4NMzyBvDa0z9LjBf3pV1ltHpWvTJqS8LpgfVKRppMAMqnfDtHiNoX6wHjmzTeB6JfU4v_ixGBLuY-NpoFeH1K_6o_w4aoP5klMx4WbeSy307FLpZdpouBfZ8GpV7LzkLXAqsn2tTBn_rmDYtPUNVatQWSyWVr2_sBobt_HGFRF9u7zVRHGgrQMnV7ndIWjMmjU6fvLSVvOEu3GNS9hZ2RsrwVY73xIp75iOSX8o2WsZmFbEF8VjU_H63MXPNl3-CRFz3WJJ7xpr0153DvkaJ5ZGi034EhylfR-rnqAmpLaGoY");
+
+                    // var requestOptions = {
+                    //   method: 'GET',
+                    //   headers: myHeaders,
+                    //   redirect: 'follow',
+                    // };
+
+                    // fetch("https://b4baf3d6-1f2c-4895-9f5c-aeecc00e7aef-prod.e1-us-east-azure.choreoapis.dev/knmr/choreogramacheckintegrationapi/1.0.0/validate", {params: {nic: data.NIC, address: data.Address, phone: data.PhoneNo}, requestOptions})
+                    //   .then(response => response.text())
+                    //   .then(result => console.log(result))
+                    //   .catch(error => console.log('error', error));
+
+                    var config = {
+                        method: 'get',
+                        url: 'https://b4baf3d6-1f2c-4895-9f5c-aeecc00e7aef-prod.e1-us-east-azure.choreoapis.dev/knmr/choreogramacheckintegrationapi/1.0.0/validate?nic='+data.NIC+'&address='+encodedAddress+'&phone='+data.PhoneNo ,
+                        headers: {
+                            'Authorization': 'Bearer ' + localStorage.getItem('auth-token')
+                        }
                     };
-                    
-                    fetch("https://b4baf3d6-1f2c-4895-9f5c-aeecc00e7aef-prod.e1-us-east-azure.choreoapis.dev/knmr/choreogramacheckintegrationapi/1.0.0/validate", {params: {nic: data.NIC, address: data.Address, phone: data.PhoneNo}, requestOptions})
-                      .then(response => response.text())
-                      .then(result => console.log(result))
-                      .catch(error => console.log('error', error));
-            
+
+                    axios(config)
+                        .then(function (response) {
+                            console.log(JSON.stringify(response.data));
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+
+
                 })}>
                     <div className="nic">
                         <div className="input-wrap">
                             <label>Enter NIC</label>
-                            <input {...register("NIC", { required: "This is required", maxLength: {value: 12, message: "Max length is 12"} })} placeholder = "NIC here"/>
+                            <input {...register("NIC", { required: "This is required", maxLength: { value: 12, message: "Max length is 12" } })} placeholder="NIC here" />
                         </div>
                     </div>
                     <p>{errors.NIC?.message}</p>
                     <div className="address">
                         <div className="input-wrap">
                             <label>Enter your permanent address</label>
-                            <input {...register("Address", { required: "This is required", maxLength: {value: 100, message: "Max length is 100"} })} placeholder = "Address here" />
+                            <input {...register("Address", { required: "This is required", maxLength: { value: 100, message: "Max length is 100" } })} placeholder="Address here" />
                         </div>
 
                     </div>
@@ -149,7 +172,7 @@ function Search() {
                     <div className="phoneno">
                         <div className="input-wrap">
                             <label>Enter Phone Number</label>
-                            <input {...register("PhoneNo", { required: "This is required", maxLength: {value: 12, message: "Max length is 12"} })} placeholder = "Phone Number here"/>
+                            <input {...register("PhoneNo", { required: "This is required", maxLength: { value: 12, message: "Max length is 12" } })} placeholder="Phone Number here" />
                         </div>
                     </div>
                     <p>{errors.PhoneNo?.message}</p>
