@@ -59,7 +59,7 @@ function Search() {
             obtainAccessToken();
 
         } else {
-            console.log("Did not pass the token")
+            localStorage.setItem('auth-token', '');
         }
 
     }, [state.isAuthenticated]);
