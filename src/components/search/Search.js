@@ -8,6 +8,8 @@ import qs from 'qs';
 import Modal from "react-modal";
 import styled, { css } from "styled-components";
 import policePng from '../../assets/Grama.jpg';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Video from '../../assets/GRMA CHECK.mp4'
 
@@ -19,7 +21,7 @@ function Search() {
 
     const obtainAccessToken = () => {
         getIDToken().then((IDToken) => {
-            console.log("ID token given in the beginning: " + IDToken)
+            // console.log("ID token given in the beginning: " + IDToken)
             var data = qs.stringify({
                 'grant_type': 'urn:ietf:params:oauth:grant-type:token-exchange',
                 'subject_token': IDToken,
@@ -41,8 +43,8 @@ function Search() {
                 .then(function (response) {
                     let y = response.data.access_token;
                     localStorage.setItem('auth-token', y)
-                    console.log(localStorage.getItem('auth-token'))
-                    console.log(y)
+                    // console.log(localStorage.getItem('auth-token'))
+                    // console.log(y)
 
                 })
 
@@ -65,15 +67,18 @@ function Search() {
 
     }, [state.isAuthenticated]);
 
+    const notify = () => toast.success("Your certificate has been sent for processing! Please click on check status after I disappear!");
+
     const onSubmit = data => {
         if (state.isAuthenticated) {
+            notify();    
             const encodedAddress = encodeURIComponent(data.Address);
             localStorage.setItem('nic', data.NIC);
             localStorage.setItem('address', data.Address);
-            console.log(data.NIC)
-            console.log(data.Address)
-            console.log(data.PhoneNo)
-            console.log(encodedAddress);
+            // console.log(data.NIC)
+            // console.log(data.Address)
+            // console.log(data.PhoneNo)
+            // console.log(encodedAddress);
 
             var config = {
                 method: 'get',
@@ -85,16 +90,17 @@ function Search() {
 
             axios(config)
                 .then(function (response) {
-                    console.log(JSON.stringify(response.data));
+                    // console.log(JSON.stringify(response.data));
                     localStorage.setItem('response', response.data.valid);
                     localStorage.setItem('responseMessage', response.data.msg);
-                    console.log(localStorage.getItem('response'));
-                    console.log(localStorage.getItem('responseMessage'));
+                    // console.log(localStorage.getItem('response'));
+                    // console.log(localStorage.getItem('responseMessage'));
                 })
                 .catch(function (error) {
                     console.log(error);
                 })
-        } else {
+        } else { 
+           
             signIn();
         }
     };
@@ -103,6 +109,7 @@ function Search() {
 
     return (
         <div name='book' className='search'>
+            <ToastContainer/>
             <div className="container">
                 <div className="left">
                     <h2>What is Grama Check?</h2>
@@ -147,12 +154,11 @@ function Search() {
                         </div>
                     </div>
                     <p>{errors.PhoneNo?.message}</p>
-                    <button>Apply for a Grama Certificate </button>
+                    <button type='submit'>Apply for a Grama Certificate </button>
                     <div className='or'><h2>OR</h2></div>
 
-                    <button onClick={() => setIsOpen(true)}>Check status</button>
+                    <button type = 'reset' onClick={() => setIsOpen(true)}>Check status</button>
                     <Modal isOpen={modalIsOpen} portalClassName='modal'>
-                        {console.log("the true we want: " + localStorage.getItem('response'))}
                         {localStorage.getItem('response') == "true" ? <div><p className='title'>Your certificate is ready</p><Container>
                             <PoliceCertificationStackStackRow>
                                 <PoliceCertificationStackStack>
@@ -183,11 +189,13 @@ function Search() {
                         </Container>
                         </div>
                             : localStorage.getItem('responseMessage') == "ID validation failed" ? <p>ID Validation failed, your record does not exist in your local ID office. Please visit your local ID office before applying for certifcate.</p>
-                                : localStorage.getItem('responseMessage') == "Address validation failed" ? <p>Address validation failed, Your ID does not match address. Please update your address in the registry before applying</p> : <p>Please try again later!</p>}
+                                : localStorage.getItem('responseMessage') == "Address validation failed" ? <p>Address validation failed, Your ID does not match address. Please update your address in the registry before applying</p> : <p>Please enter details and try again!</p>}
                         <button onClick={() => setIsOpen(false)} className='closeBtn'>Close</button>
                     </Modal>
 
                 </form>
+    
+                
             </div>
         </div>
 

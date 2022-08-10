@@ -4,7 +4,7 @@
 }
 
 .search .container {
-    display: grid;
+    display: flex;
     grid-template-columns: 2fr 1fr;
     grid-gap: 1rem;
     padding: 0 1rem;
@@ -19,15 +19,15 @@
 }
 
 .search .box {
-  display: flex;
-  width: 810px;
-  height: 410px;
-  align-items: center;
-  margin: auto;
-  text-align: center;
-  font-size: 20px;
-  background-color: #eaceb8;
-    
+    display: flex;
+    width: 810px;
+    height: 410px;
+    align-items: center;
+    margin: auto;
+    text-align: center;
+    font-size: 20px;
+    background-color: #eaceb8;
+
 }
 
 .right {
@@ -73,10 +73,10 @@
 
 .search input,
 select {
-  font-size: 1rem;
-  font-family: "Poppins", sans-serif;
-  outline: none;
-  padding: 0.69rem;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+    outline: none;
+    padding: 0.69rem;
 }
 
 .search .date {
@@ -87,27 +87,39 @@ select {
     margin: .4rem;
 }
 
-.or{
+.or {
     text-align: center;
 }
 
 .title {
     flex: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.7rem;
-  text-align: center;
-  }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.7rem;
+    text-align: center;
+}
 
-  .modal{
+.modal {
     text-align: center;
     inset: 100px;
-  }
-  
-  .closeBtn{
-      margin-top: 20px;
-  }
+}
+
+.closeBtn {
+    margin-top: 20px;
+}
+
+.float-container {
+    border: 3px solid #fff;
+    padding: 20px;
+}
+
+.float-child {
+    width: 50%;
+    float: left;
+    padding: 20px;
+    border: 2px solid red;
+}  
 
 @media screen and (max-width: 940px) {
     .search .container {
