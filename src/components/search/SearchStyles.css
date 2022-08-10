@@ -19,12 +19,14 @@
 }
 
 .search .box {
-    display: flex;
-    max-width: 810px;
-    max-height: 410px;
-    align-items: center;
-    margin: auto;
-    text-align: center;
+  display: flex;
+  width: 810px;
+  height: 410px;
+  align-items: center;
+  margin: auto;
+  text-align: center;
+  font-size: 20px;
+  background-color: #eaceb8;
     
 }
 
@@ -69,10 +71,12 @@
     flex-direction: column;
 }
 
-.search input, select {
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    outline: none;
+.search input,
+select {
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+  outline: none;
+  padding: 0.69rem;
 }
 
 .search .date {
@@ -96,15 +100,14 @@
   text-align: center;
   }
 
-/* #closeBtn{
-    flex: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.7rem;
+  .modal{
     text-align: center;
-} */
-
+    inset: 100px;
+  }
+  
+  .closeBtn{
+      margin-top: 20px;
+  }
 
 @media screen and (max-width: 940px) {
     .search .container {

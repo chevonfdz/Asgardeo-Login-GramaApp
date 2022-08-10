@@ -57,8 +57,8 @@ function Navbar() {
                         state.isAuthenticated
                             ? (
                                 <div>
-                                    <li><button onClick={() =>
-                                        signOut()}>Logout</button></li>
+                                    <li><button onClick={() =>{
+                                        signOut(); localStorage.clear()}}>Logout</button></li>
                                 </div>
                             )
                             : <li><button onClick={() => signIn()}>Login</button></li>

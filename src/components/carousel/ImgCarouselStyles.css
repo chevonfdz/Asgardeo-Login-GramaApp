@@ -4,8 +4,7 @@
 
 
 .carousel img {
-    height:90vh;
-    object-fit: cover;
+    height:30vh;
 }
 
 .thumbs-wrapper, .carousel-status {

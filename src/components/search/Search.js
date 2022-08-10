@@ -15,7 +15,7 @@ import Video from '../../assets/GRMA CHECK.mp4'
 function Search() {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [modalIsOpen, setIsOpen] = React.useState(false);
-    const { state, getIDToken } = useAuthContext();
+    const { state, getIDToken, signIn } = useAuthContext();
 
     const obtainAccessToken = () => {
         getIDToken().then((IDToken) => {
@@ -65,9 +65,40 @@ function Search() {
 
     }, [state.isAuthenticated]);
 
-    const validateResponse = () => {
+    const onSubmit = data => {
+        if (state.isAuthenticated) {
+            const encodedAddress = encodeURIComponent(data.Address);
+            localStorage.setItem('nic', data.NIC);
+            localStorage.setItem('address', data.Address);
+            console.log(data.NIC)
+            console.log(data.Address)
+            console.log(data.PhoneNo)
+            console.log(encodedAddress);
 
+            var config = {
+                method: 'get',
+                url: 'https://b4baf3d6-1f2c-4895-9f5c-aeecc00e7aef-prod.e1-us-east-azure.choreoapis.dev/knmr/choreogramacheckintegrationapi/1.0.0/validate?nic=' + data.NIC + '&address=' + encodedAddress + '&phone=' + data.PhoneNo,
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem('auth-token')
+                }
+            };
+
+            axios(config)
+                .then(function (response) {
+                    console.log(JSON.stringify(response.data));
+                    localStorage.setItem('response', response.data.valid);
+                    localStorage.setItem('responseMessage', response.data.msg);
+                    console.log(localStorage.getItem('response'));
+                    console.log(localStorage.getItem('responseMessage'));
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+        } else {
+            signIn();
+        }
     };
+
 
 
     return (
@@ -93,37 +124,7 @@ function Search() {
                     </div>
                     <h2>Fill the form here to generate your Grama certificate.Check below steps to generate the certificate</h2>
                 </div>
-                <form onSubmit={handleSubmit((data) => {
-                    const encodedAddress = encodeURIComponent(data.Address);
-                    localStorage.setItem('nic', data.NIC);
-                    localStorage.setItem('address', data.Address);
-                    console.log(data.NIC)
-                    console.log(data.Address)
-                    console.log(data.PhoneNo)
-                    console.log(encodedAddress);
-
-                    var config = {
-                        method: 'get',
-                        url: 'https://b4baf3d6-1f2c-4895-9f5c-aeecc00e7aef-prod.e1-us-east-azure.choreoapis.dev/knmr/choreogramacheckintegrationapi/1.0.0/validate?nic=' + data.NIC + '&address=' + encodedAddress + '&phone=' + data.PhoneNo,
-                        headers: {
-                            'Authorization': 'Bearer ' + localStorage.getItem('auth-token')
-                        }
-                    };
-
-                    axios(config)
-                        .then(function (response) {
-                            console.log(JSON.stringify(response.data));
-                            localStorage.setItem('response', response.data.valid);
-                            localStorage.setItem('responseMessage', response.data.msg);
-                            console.log(localStorage.getItem('response'));
-                            console.log(localStorage.getItem('responseMessage'));
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-
-
-                })}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="nic">
                         <div className="input-wrap">
                             <label>Enter NIC</label>
@@ -146,11 +147,11 @@ function Search() {
                         </div>
                     </div>
                     <p>{errors.PhoneNo?.message}</p>
-                    <button onClick={validateResponse}>Apply for a Grama Certificate </button>
+                    <button>Apply for a Grama Certificate </button>
                     <div className='or'><h2>OR</h2></div>
 
                     <button onClick={() => setIsOpen(true)}>Check status</button>
-                    <Modal isOpen={modalIsOpen}>
+                    <Modal isOpen={modalIsOpen} portalClassName='modal'>
                         {console.log("the true we want: " + localStorage.getItem('response'))}
                         {localStorage.getItem('response') == "true" ? <div><p className='title'>Your certificate is ready</p><Container>
                             <PoliceCertificationStackStackRow>
@@ -171,7 +172,6 @@ function Search() {
                                     <Auther>
                                         Authorised by officer in charge{"\n"}
                                         Village Officer{"\n"}
-                                        Negombo
                                     </Auther>
                                     <Auther1>To Whom It May Concern,</Auther1>
                                     <Image
@@ -184,7 +184,7 @@ function Search() {
                         </div>
                             : localStorage.getItem('responseMessage') == "ID validation failed" ? <p>ID Validation failed, your record does not exist in your local ID office. Please visit your local ID office before applying for certifcate.</p>
                                 : localStorage.getItem('responseMessage') == "Address validation failed" ? <p>Address validation failed, Your ID does not match address. Please update your address in the registry before applying</p> : <p>Please try again later!</p>}
-                        <button onClick={() => setIsOpen(false)}>Close</button>
+                        <button onClick={() => setIsOpen(false)} className='closeBtn'>Close</button>
                     </Modal>
 
                 </form>
@@ -198,7 +198,7 @@ const Container = styled.div`
   display: flex;
   background-color: rgba(213,254,227,0);
   flex-direction: row;
-  height: 100vh;
+  height: 70vh;
   width: 100vw;
 `;
 
@@ -240,10 +240,9 @@ const LoremIpsum = styled.span`
   top: 231px;
   position: absolute;
   font-style: normal;
-  font-weight: 400;
   color: #121212;
   font-size: 19px;
-  left: 569px;
+  left: 500px;
 `;
 
 const Rect = styled.div`
@@ -258,7 +257,7 @@ const Rect = styled.div`
 const Auther = styled.span`
   font-family: Roboto;
   top: 468px;
-  left: 569px;
+  left: 500px;
   position: absolute;
   font-style: normal;
   font-weight: 700;
@@ -271,8 +270,8 @@ const Auther = styled.span`
 
 const Auther1 = styled.span`
   font-family: Roboto;
-  top: 168px;
-  left: 569px;
+  top: 178px;
+  left: 500px;
   position: absolute;
   font-style: normal;
   font-weight: 700;
@@ -285,7 +284,7 @@ const Auther1 = styled.span`
 
 const Image = styled.img`
   top: 117px;
-  left: 116px;
+  left: 80px;
   width: 382px;
   height: 452px;
   position: absolute;
@@ -294,8 +293,8 @@ const Image = styled.img`
 
 const Date = styled.span`
   font-family: Roboto;
-  top: 138px;
-  left: 569px;
+  top: 150px;
+  left: 500px;
   position: absolute;
   font-style: normal;
   font-weight: 700;
@@ -325,7 +324,7 @@ const PoliceCertificationStackStackRow = styled.div`
   display: flex;
   flex: 1 1 0%;
   margin-right: -1291px;
-  margin-left: 143px;
+  margin-left: 350px;
   margin-top: 49px;
 `;
 

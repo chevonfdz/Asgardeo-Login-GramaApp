@@ -17,8 +17,6 @@ function App() {
       <Navbar />
       <Hero />
       <Search />
-      <Selects />
-      <ImgCarousel />
       <Footer />
     </div>
   );

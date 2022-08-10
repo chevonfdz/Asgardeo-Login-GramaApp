@@ -4,7 +4,7 @@ import './ImgCarouselStyles.css'
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
-import Register from '../../assets/register.png'
+import Login from '../../assets/login.png'
 import NIC from '../../assets/nic.png'
 import Address from '../../assets/addr.png'
 
@@ -13,7 +13,7 @@ function ImgCarousel() {
         <div name='carousel' className='container'>
             <Carousel className='carousel' showArrows={true} autoPlay={true} infiniteLoop={true} >
                 <div>
-                    <img src={Register} alt='/' />
+                    <img src={Login} alt='/' />
                     {/* <p className="legend">Maldives 1</p> */}
                 </div>
                 <div>
