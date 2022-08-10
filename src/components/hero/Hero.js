@@ -13,7 +13,7 @@ function Hero() {
                 <h1>GRAMA CHECK</h1>
                 <form className="form">
                 </form>
-                <h2>Your partner in getting a police report</h2>  
+                <h2>Your partner in getting a grama certifcate</h2>  
             </div>
         </div>
     )
