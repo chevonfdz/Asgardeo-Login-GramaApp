@@ -129,7 +129,7 @@ function Search() {
 
                         </div>
                     </div>
-                    <h2>Fill the form here to generate your Grama certificate.Check below steps to generate the certificate</h2>
+                    <h2>Fill the form here to your right to generate your Grama certificate.</h2>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="nic">
